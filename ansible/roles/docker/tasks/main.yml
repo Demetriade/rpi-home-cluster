@@ -1,28 +1,15 @@
+---
 - name: Check if Docker is installed
-  shell: "docker version"
+  shell: docker version
   ignore_errors: true
   register: docker_check
 
-- name: Download Docker installation script
-  get_url:
-    url: https://get.docker.com
-    dest: /home/charles/get-docker.sh
-    mode: "0755"
-  when: docker_check.rc != 0
-
-- name: Run get-docker.sh
-  become: true
-  shell: /home/charles/get-docker.sh
+- name: Run Docker installation script
+  shell: curl -sfL https://get.docker.com | sh -
   when: docker_check.rc != 0
 
 - name: Add existing user 'charles' to group docker
-  become: true
   user:
     name: charles
     groups: docker
     append: yes
-
-- name: Clean up get-docker.sh
-  file:
-    path: "/home/charles/get-docker.sh"
-    state: absent
