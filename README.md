@@ -34,4 +34,16 @@ cd ansible
 ansible-playbook configure.yml
 ```
 
+## 4. Set up kubectl locally
+1. Install kubectl and k9s
+```bash
+brew install kubectl k9s
+```
 
+2. Update kubeconfig
+```bash
+# Copy from the rpi server
+sudo cat /etc/rancher/k3s/k3s.yaml
+# Paste to your computer
+vim ~/.kube/config
+```
