@@ -1,0 +1,10 @@
+[rpi_primary]
+192.168.2.23
+
+[rpi_secondary]
+192.168.2.24
+192.168.2.25
+
+[rpi:children]
+rpi_primary
+rpi_secondary

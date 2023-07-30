@@ -1,0 +1,5 @@
+- hosts: rpi
+  gather_facts: no
+  roles:
+    - { role: os-update, tags: [os-update] }
+    - { role: docker, tags: [docker] }
