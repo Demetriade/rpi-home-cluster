@@ -4,4 +4,4 @@
   roles:
     - { role: os-update, tags: [os-update] }
     - { role: docker, tags: [docker] }
-    - { role: k3s/server, tags: [k3s/server] }
+    - { role: k3s, tags: [k3s] }
