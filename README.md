@@ -37,7 +37,7 @@ ansible-playbook configure.yml
 ## 4. Set up kubectl locally
 1. Install kubectl and k9s
 ```bash
-brew install kubectl k9s
+brew install kubectl k9s helm
 ```
 
 2. Update kubeconfig

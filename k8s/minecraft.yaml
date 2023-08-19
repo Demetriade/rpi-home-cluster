@@ -1,0 +1,52 @@
+# https://github.com/itzg/minecraft-server-charts
+# helm repo add itzg https://itzg.github.io/minecraft-server-charts/
+# kubectl create namespace minecraft
+# helm upgrade --install --namespace minecraft --name minecraft -f k8s/minecraft.yaml itzg/minecraft
+# helm uninstall --namespace minecraft minecraft
+# kubectl cp ${NAMESPACE}/${POD_ID}:/data .
+---
+resources:
+  requests:
+    memory: 2048Mi
+    cpu: 1000m
+
+minecraftServer:
+  eula: true
+  version: LATEST
+  Difficulty: hard
+  # One of: DEFAULT, FLAT, LARGEBIOMES, AMPLIFIED, CUSTOMIZED
+  levelType: DEFAULT
+  # Message of the Day
+  motd: "Welcome to Minecraft on Kubernetes!"
+  ops: "Churley69,tremo67"
+  # Define this if you want a specific map generation seed.
+  levelSeed: "26942297" # -426, 67, -603
+  worldSaveName: world
+  # If you adjust this, you may need to adjust resources.requests above to match.
+  memory: 4096M
+  # General JVM options to be passed to the Minecraft server invocation
+  jvmOpts: ""
+  # Options like -X that need to proceed general JVM options
+  jvmXXOpts: ""
+  serviceType: LoadBalancer
+
+persistence:
+  dataDir:
+    enabled: true
+
+livenessProbe:
+  command:
+    - mc-health
+  initialDelaySeconds: 180
+  periodSeconds: 5
+  failureThreshold: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  command:
+    - mc-health
+  initialDelaySeconds: 180
+  periodSeconds: 5
+  failureThreshold: 20
+  successThreshold: 1
+  timeoutSeconds: 1
